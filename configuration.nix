@@ -27,7 +27,7 @@
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "de";
+  #  keyMap = "de";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
@@ -37,7 +37,7 @@
   programs.pantheon-tweaks.enable = true;
 
   # Configure keymap in X11
-  # services.xserver.xkb.layout = "de";
+  services.xserver.xkb.layout = "de";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
@@ -50,12 +50,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with â€˜passwdâ€™.
   users.defaultUserShell = pkgs.zsh;
   users.users.phil = {
     isNormalUser = true;
     initialPassword = "1234";
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable â€˜sudoâ€™ for the user.
   };
 
   # List packages installed in system profile. To search, run:
@@ -73,6 +73,7 @@
    discord
    element-desktop
    qbittorrent-qt5
+   nix-zsh-completions
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -84,7 +85,7 @@
   };
 
   # List services that you want to enable:
-  services.polkit.enable = true; 
+  security.polkit.enable = true; 
   # Enable the OpenSSH daemon.'
   services.openssh.enable = true;
   # Open ports in the firewall.
@@ -95,9 +96,14 @@
 
   # Misc Stuff
     programs.dconf.enable = true;
-	programs.zsh.enable = true;
-
-
+    programs.zsh.enable = true;
+	
+  # Setting up oh-my-zsh
+  programs.zsh.ohMyZsh = {
+    enable = true;
+    plugins = [ "git" "python" "man" "emoji" "sudo" "command-not-found" ];
+    theme = "agnoster";
+  };
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
@@ -120,6 +126,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

@@ -23,10 +23,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
@@ -35,10 +31,10 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system and Pantheon.
   services.xserver.enable = true;
   services.xserver.desktopManager.pantheon.enable = true;
-
+  programs.pantheon-tweaks.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "de";
@@ -55,6 +51,7 @@
   services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.defaultUserShell = pkgs.zsh;
   users.users.phil = {
     isNormalUser = true;
     initialPassword = "1234";
@@ -65,7 +62,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-   zsh
+   git
    htop
    wget
    google-chrome
@@ -73,6 +70,9 @@
    roboto-serif
    vlc
    noto-fonts-color-emoji
+   discord
+   element-desktop
+   qbittorrent-qt5
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -84,16 +84,19 @@
   };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.'
   services.polkit.enable = true; 
+  # Enable the OpenSSH daemon.'
   services.openssh.enable = true;
-  programs.dconf.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # Misc Stuff
+    programs.dconf.enable = true;
+	programs.zsh.enable = true;
+
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
